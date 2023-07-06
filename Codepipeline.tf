@@ -1,6 +1,6 @@
-resource "aws_codepipeline" "terraform_codepipeline" {
-  name     = "terraform-codepipeline"
-  role_arn = aws_iam_role.terraform_codepipeline.arn
+resource "aws_codepipeline" "this" {
+  name     = var.aws_codepipeline_name
+  role_arn = aws_iam_role.this.arn
 
   artifact_store {
     location = aws_s3_bucket.codepipeline-artifact-9455578.id
@@ -8,7 +8,7 @@ resource "aws_codepipeline" "terraform_codepipeline" {
   }
 
   stage {
-    name = "Fetch"
+    name = var.aws_codepipeline_first_stage_name
 
     action {
       name             = "Source"
@@ -28,7 +28,7 @@ resource "aws_codepipeline" "terraform_codepipeline" {
   }
 
   stage {
-    name = "Plan"
+    name = var.aws_codepipeline_second_stage_name
 
     action {
       name             = "Terraform-Plan"
@@ -54,7 +54,7 @@ resource "aws_codepipeline" "terraform_codepipeline" {
   }
 
   stage {
-    name = "Deploy"
+    name = var.aws_codepipeline_third_stage_name
 
     action {
       name            = "Terraform-Apply"

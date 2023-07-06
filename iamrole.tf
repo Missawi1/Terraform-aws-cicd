@@ -1,5 +1,5 @@
-resource "aws_iam_role" "terraform_codepipeline" {
-  name               = "test-role"
+resource "aws_iam_role" "this" {
+  name               = var.aws_iam_role
 
   assume_role_policy = jsonencode(
     {

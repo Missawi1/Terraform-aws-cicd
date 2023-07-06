@@ -1,7 +1,7 @@
 resource "aws_codebuild_project" "plan" {
-  name          = "plan"
+  name          = var.first_aws_codebuild_project
   description   = "terraform_codebuild_project"
-  service_role  = aws_iam_role.terraform_codepipeline.arn
+  service_role  = aws_iam_role.this.arn
 
   artifacts {
     type = "CODEPIPELINE"
@@ -32,9 +32,9 @@ resource "aws_codebuild_project" "plan" {
 }
 
 resource "aws_codebuild_project" "apply" {
-  name          = "apply"
+  name          = var.second_aws_codebuild_project
   description   = "terraform_codebuild_project"
-  service_role  = aws_iam_role.terraform_codepipeline.arn
+  service_role  = aws_iam_role.this.arn
 
   artifacts {
     type = "CODEPIPELINE"

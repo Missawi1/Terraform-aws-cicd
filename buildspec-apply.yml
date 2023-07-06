@@ -3,6 +3,8 @@ version: 0.2
 env:
   variables:
     TF_VERSION: "0.15.5"
+    CODECOMMIT_REPO_URL: "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/vpc-terra"
+    INFRASTRUCTURE_DIRECTORY_PATH: "vpc-terra/VPC"
 
 phases:
   install:
@@ -16,8 +18,8 @@ phases:
     commands:
       - git config --global credential.helper '!aws codecommit credential-helper $@'
       - git config --global credential.UseHttpPath true
-      - git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/vpc-terra
-      - cd vpc-terra/VPC
+      - git clone ${CODECOMMIT_REPO_URL}
+      - cd ${INFRASTRUCTURE_DIRECTORY_PATH}
       - terraform init -no-color
       - terraform apply -auto-approve
 
