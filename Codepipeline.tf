@@ -17,7 +17,7 @@ resource "aws_codepipeline" "terraform_codepipeline" {
       provider         = "CodeCommit"
       version          = "1"
       input_artifacts  = []
-      output_artifacts = ["source_output"]
+      output_artifacts = ["sourceoutput"]
 
       configuration = {
         RepositoryName = "vpc-terra"
@@ -35,7 +35,7 @@ resource "aws_codepipeline" "terraform_codepipeline" {
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
-      input_artifacts  = ["source_output"]
+      input_artifacts  = ["sourceoutput"]
       output_artifacts = ["TerraformPlanFile"]
       version          = "1"
       run_order = 1
@@ -61,14 +61,14 @@ resource "aws_codepipeline" "terraform_codepipeline" {
       category        = "Build"
       owner           = "AWS"
       provider        = "CodeBuild"
-      input_artifacts = ["source_output", "TerraformPlanFile"]
+      input_artifacts = ["sourceoutput", "TerraformPlanFile"]
       output_artifacts = []
       version         = "1"
       run_order        = 1
 
       configuration = {
         ProjectName = "apply"
-        PrimarySource = "source_output"
+        PrimarySource = "sourceoutput"
         EnvironmentVariables = jsonencode([
           {
             name  = "PIPELINE_EXECUTION_ID"

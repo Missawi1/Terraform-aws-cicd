@@ -3,7 +3,6 @@ version: 0.2
 env:
   variables:
     TF_VERSION: "0.15.5"
-    PERMISSION_SETS_DIR: "permission_sets"
 
 phases:
   install:
@@ -15,10 +14,14 @@ phases:
 
   build:
     commands:
-      - cd ./vpc
+      - git config --global credential.helper '!aws codecommit credential-helper $@'
+      - git config --global credential.UseHttpPath true
+      - git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/vpc-terra
+      - cd vpc-terra/VPC
       - terraform init -no-color
-      - terraform apply tfplan
+      - terraform apply -auto-approve
 
   post_build:
     commands:
       - echo "Terraform apply completed on `date`"
+      - echo "The infrastructure has been deployed"

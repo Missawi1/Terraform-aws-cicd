@@ -17,10 +17,10 @@ resource "aws_s3_bucket" "codepipeline-artifact-9455578" {
 
 }
 
-resource "aws_s3_bucket_public_access_block" "s3Public_artifacts" {
+/*resource "aws_s3_bucket_public_access_block" "s3Public_artifacts" {
   bucket                  = aws_s3_bucket.codepipeline-artifact-9455578.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-}
+}*/
